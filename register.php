@@ -3,8 +3,7 @@ session_start();
 if(isset($_POST['submit'])){
 $register = new Register();
 if($register->process()){
-	echo $register->process();
-	echo "success";
+	header("Location:http://www.google.com");
 }
 else{
 	echo $register->show_error();
@@ -60,16 +59,20 @@ $this->token = $_POST['token'];
 
 }
 public function process(){
-	echo $this->register();
+	
 
 if($this->valid_token() && $this->valid_data()){
 	$this->register();
+	if($this->register()== true){
+		return true;
+	}
+
 }
 
 
 }
 
-public function filter($var){
+public function filter($var){    
 
  return preg_replace('/[^a-zA-Z0-9\s]/', "", $var);
 }
@@ -88,6 +91,8 @@ mysqli_query($db_connect, $q);
 $row = mysqli_affected_rows($db_connect);
 if($row<1){
 	$this->errors[] ="could not process the form";
+}else{
+	return true;
 }
 
 }
@@ -129,8 +134,6 @@ return count($this->errors)?0 :1;
 
 
 }
-
-
 }
 
 

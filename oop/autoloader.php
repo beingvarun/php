@@ -2,7 +2,6 @@
 
 function autoLoader($className){
 
-
 $directories = array( '', 'test/');
 
 $fileformats = array('%s.php', '%s.class.php', 'class.%s.php', '%s.inc.php');

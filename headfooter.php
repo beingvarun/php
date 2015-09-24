@@ -1,9 +1,19 @@
 <?php
 
 class Page{
+
+
+var $page;
+
+public function Page(){
+  $this->page = '';
+}
+
+
+
 //generates the top part of the header
-public static function addHeader($page, $title ){
-$page.= <<<EOD
+public  function addHeader( $title ){
+$this->page.= <<<EOD
 <html>
 <head>
 </head>
@@ -15,26 +25,33 @@ $title
 $title
 </h1>
 EOD;
-return $page;
 }
 
 //generate the function fo the footer
-public static function addFooter($page, $title){
+public  function addFooter($title){
 
-$page .= <<<EOD
+$this->page .= <<<EOD
 <pre>
 $title
 </pre>
 </body>
 </html>
 EOD;
-return $page;
 }
+
+function get(){
+
+ return $this->page;
 }
-$page ='';
-$page = Page::addHeader($page, 'Finally found the right one');
-$page = Page::addFooter($page, 'nothing here to say');
-echo $page;
+
+
+}
+
+$webpage  = new Page();
+$webpage->addHeader('A page built with object');
+$webpage->addFooter('testing');
+echo $webpage->get();
+
 
 
 ?>

@@ -1,0 +1,31 @@
+<html ng-app="myApp">
+<head >
+<script src ="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js">
+</script>
+<script>
+var app= angular.module('myApp', []);
+app.controller('controllerFunction', function ($scope){
+this.now = new Date()  ;
+this.hellomessages = ['hello', 'bonjour', 'hola', 'Ciao', 'Hallo'];
+this.greeting = this.hellomessages[0];
+this.fbid = "";
+this.randomgetMessage = function (){
+	this.greeting = this.hellomessages[parseInt((Math.random()*this.hellomessages.length))];
+}
+
+});
+</script>
+</head>
+<body ng-controller="controllerFunction as greet">
+	<input type="text" ng-model="greet.fbid">
+	<span><img ng-src="https://graph.facebook.com/{{greet.fbid}}
+➥/picture?type=normal"/></span>
+	<h1>{{greet.greeting}}</h1>
+	<h3>current Time is </h3><h4>{{greet.now | date:'medium'}}</h4>
+	<button ng-click="greet.randomgetMessage()">Random Hello Message</button>
+
+
+</body>
+
+
+</html>

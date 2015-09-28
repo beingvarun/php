@@ -1,0 +1,30 @@
+<html ng-app="simple">
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js">
+	</script>
+	<script>
+ var app = angular.module('simple',[]);
+ app.service('testService', function($timeout){//defining the service name 'testService' with injecting timeout
+ 	this.sayhello = function(name){//property sayhello is a function it 
+ 		$timeout(function(){
+ 		console.log("welcome to services"+name);
+ 	 }, 2000);
+ 	}
+ 	
+
+ });
+app.controller('testController', function(testService){
+	testService.sayhello('  machans');
+    
+});
+
+
+	</script>
+</head>
+
+
+<body ng-controller="testController">
+
+
+</body>
+</html>

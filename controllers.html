@@ -5,14 +5,7 @@
 <script>
 var app= angular.module('myApp', []);
 app.controller('controllerFunction', function ($scope){
-this.now = new Date()  ;
-this.hellomessages = ['hello', 'bonjour', 'hola', 'Ciao', 'Hallo'];
-this.greeting = this.hellomessages[0];
-this.fbid = "";
-this.randomgetMessage = function (){
-	this.greeting = this.hellomessages[parseInt((Math.random()*this.hellomessages.length))];
-}
-
+ 
 });
 </script>
 </head>

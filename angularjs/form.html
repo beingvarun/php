@@ -1,0 +1,73 @@
+<html ng-app="form">
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js">
+	</script>
+	<script>
+	 var app = angular.module('form',[]);
+	 app.controller('formControl', function($scope){
+	 	$scope.user ={};//declaring the user object
+	 	$scope.countries =[{
+	 		id:'in',
+	 		desc:'india'
+	 	},
+	 	{
+	 		id:'ae',
+	 		desc:'United Arab Emirates'
+	 	},
+	 	{
+	 		id:'us',
+	 		desc:'United states of America'
+	 	}];
+
+
+	 });
+	</script>
+	<style>
+	.error-message{
+		color:red;
+	}
+	input.ng-dirty.ng-invalid{
+		border-color:red;
+	}
+	</style>
+</head>
+<body ng-controller="formControl">
+<form name="angularform" novalidate>
+Firstname:
+</br>	
+<!--text type-->
+<input type="text" name="firstname" ng-model="user.firstname"ng-required ng-minlength="3">{{user.firstname}}
+<span class="error-message" ng-show="angularform.firstname.$dirty&& angularform.firstname.$error.required">Firstname is mandatory</span>
+<span class="error-message" ng-show="angularform.firstname.$dirty&& angularform.firstname.$invalid">Firstname should have minimum 3 caharcters</span>
+</br>
+
+<!--Phone number validation-->
+Phone No:
+<input type="text" name="phoneno" ng-model="user.phoneno" ng-maxlength="10" ng-minlength="10" ng-pattern="/^\d{10}$/"/>
+<span class="error-message" ng-show="angularform.phoneno.$dirty && angularform.phoneno.$invalid ">Mobile no is not valid</span>
+</br>
+
+
+
+
+Email
+</br>
+<input type="text" name="email" ng-model="user.email">
+<br>
+<!--select type-->
+<select name="country" ng-model="user.country" ng-options="country as country.desc for country in countries">
+<option value="">Please select your  country</option>
+</select>
+</br>
+<!--radio type-->
+<input type="radio" ng-model="user.gender" value="Male"/>Male
+<input type="radio" ng-model="user.gender" value="Female"/>Female
+<input type="radio" ng-model="user.gender" value="UnSpecified"/>Not Specified
+</br>
+<!--Checkbox control-->
+Ready to relocate:
+</br>
+<input type="checkbox" ng-model="user.relocate" />Ready
+</form>
+</body>
+</html>

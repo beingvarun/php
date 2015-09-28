@@ -7,8 +7,9 @@ $location.path ('view2/'+$scope.firstname+'/'+$scope.lastname)
 
 }
 
-}).controller('Controller2', function($scope, $routeParams){
+}).controller('Controller2', function($scope, $routeParams, names){
 	$scope.now = new Date();
 	$scope.firstname = $routeParams.firstname;
 	$scope.lastname = $routeParams.lastname;
+	$scope.names = names;
 });

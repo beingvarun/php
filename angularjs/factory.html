@@ -1,0 +1,32 @@
+<html ng-app="simple">
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js">
+	</script>
+	<script>
+ var app = angular.module('simple',[]);
+ app.factory('testfactory', function(){
+return {
+
+sayhello: function(name){
+   console.log("hello"+ name);
+},
+echo :function(message){
+
+console.log(message);
+}
+}
+ });
+ app.controller('testController', function(testfactory){
+ 	testfactory.sayhello('varunraj');
+ 	testfactory.echo('really super cool');
+ })
+
+	</script>
+</head>
+
+
+<body ng-controller="testController">
+  
+
+</body>
+</html>

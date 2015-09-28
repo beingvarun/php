@@ -6,18 +6,13 @@
 	 var app = angular.module('form',[]);
 	 app.controller('formControl', function($scope){
 	 	$scope.user ={};//declaring the user object
-	 	$scope.countries =[{
-	 		id:'in',
-	 		desc:'india'
-	 	},
-	 	{
-	 		id:'ae',
-	 		desc:'United Arab Emirates'
-	 	},
-	 	{
-	 		id:'us',
-	 		desc:'United states of America'
-	 	}];
+	 	$scope.saveUser = function(){
+	 		if($scope.angularform.$valid){
+	 			console.log("saving the user");
+	 		}else{
+	 			console.log("cannt save");
+	 		}
+	 	};
 
 
 	 });
@@ -32,7 +27,7 @@
 	</style>
 </head>
 <body ng-controller="formControl">
-<form name="angularform" novalidate>
+<form name="angularform" novalidate ng-submit="saveUser()">
 Firstname:
 </br>	
 <!--text type-->
@@ -46,28 +41,11 @@ Phone No:
 <input type="text" name="phoneno" ng-model="user.phoneno" ng-maxlength="10" ng-minlength="10" ng-pattern="/^\d{10}$/"/>
 <span class="error-message" ng-show="angularform.phoneno.$dirty && angularform.phoneno.$invalid ">Mobile no is not valid</span>
 </br>
+<input type="submit" value"submit"/>
 
 
 
 
-Email
-</br>
-<input type="text" name="email" ng-model="user.email">
-<br>
-<!--select type-->
-<select name="country" ng-model="user.country" ng-options="country as country.desc for country in countries">
-<option value="">Please select your  country</option>
-</select>
-</br>
-<!--radio type-->
-<input type="radio" ng-model="user.gender" value="Male"/>Male
-<input type="radio" ng-model="user.gender" value="Female"/>Female
-<input type="radio" ng-model="user.gender" value="UnSpecified"/>Not Specified
-</br>
-<!--Checkbox control-->
-Ready to relocate:
-</br>
-<input type="checkbox" ng-model="user.relocate" />Ready
 </form>
 </body>
 </html>

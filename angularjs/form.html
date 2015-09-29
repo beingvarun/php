@@ -4,48 +4,51 @@
 	</script>
 	<script>
 	 var app = angular.module('form',[]);
-	 app.controller('formControl', function($scope){
-	 	$scope.user ={};//declaring the user object
-	 	$scope.saveUser = function(){
-	 		if($scope.angularform.$valid){
-	 			console.log("saving the user");
-	 		}else{
-	 			console.log("cannt save");
-	 		}
-	 	};
+	 app.controller('promiseControl',['$scope', '$q', '$interval', function($scope, $q, $interval){
+
+     $scope.getPromise = function(){
+     var i =0 ;
+     var deferred = $q.defer();
+     var timer = $interval(function(){
 
 
-	 });
-	</script>
-	<style>
-	.error-message{
-		color:red;
-	}
-	input.ng-dirty.ng-invalid{
-		border-color:red;
-	}
-	</style>
-</head>
-<body ng-controller="formControl">
-<form name="angularform" novalidate ng-submit="saveUser()">
-Firstname:
-</br>	
-<!--text type-->
-<input type="text" name="firstname" ng-model="user.firstname"ng-required ng-minlength="3">{{user.firstname}}
-<span class="error-message" ng-show="angularform.firstname.$dirty&& angularform.firstname.$error.required">Firstname is mandatory</span>
-<span class="error-message" ng-show="angularform.firstname.$dirty&& angularform.firstname.$invalid">Firstname should have minimum 3 caharcters</span>
+    if(!!$scope.cancelRequested)
+    	{
+    		deferred.reject('Promise rejected due to cancellation');
+        $interval.cancel(timer);
+        }
+        i = i +1;
+        if(i==5){
+        	deferred.resolve('counter has reached 5');
+        	$interval.cancel(timer);
+        }
+        else{
+        	deferred.notify('counter has reached'+i);
+        }
+     }, 1000);
+     return deferred.promise;
+ }
+ $scope.getAsync = function(){
+ 	var promise = $scope.getPromise();
+ 	promise.then(function(message){
+ 		$scope.status = "resolved"+ message;
+ 	}, function(message){
+ 		$scope.status = "rejected"+ message;
+ 	},function(message){
+ 		$scope.status = "Notifying"+message;
+ 	});
+ }
+
+	 }]);
+	 	
+    </script>
+</head> 
+<body ng-controller="promiseControl"> 
+	<input type="button" ng-click="getAsync()" value="get me an async message"/> </br>
+<input type="button" ng-click="cancelRequested=true" value="cancel fetching the data"/>
 </br>
-
-<!--Phone number validation-->
-Phone No:
-<input type="text" name="phoneno" ng-model="user.phoneno" ng-maxlength="10" ng-minlength="10" ng-pattern="/^\d{10}$/"/>
-<span class="error-message" ng-show="angularform.phoneno.$dirty && angularform.phoneno.$invalid ">Mobile no is not valid</span>
-</br>
-<input type="submit" value"submit"/>
+Promise status = {{status}}
 
 
-
-
-</form>
 </body>
 </html>

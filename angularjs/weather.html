@@ -1,0 +1,54 @@
+<html ng-app="weather">
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js">
+	</script>
+	<script>
+    var app = angular.module('weather', []);
+    app.factory('weatherservice', function($http){
+    return{
+    getWeather:function(city, country){
+	var query = city +' ,'+ country;
+	return $http.get('http://api.openweathermap.org/data/2.5/weather', {params:{q:query}}).then(
+		function(response){
+			return response.data.weather[0].description;
+		});
+} 
+
+}
+
+  });
+app.controller('weathercontroller', function($scope, weatherservice ){
+$scope.getWeather = function(){
+	$scope.weatherdescription = "Fetching....";
+	weatherservice.getWeather($scope.city, $scope.country).then(function(data){
+     $scope.weatherdescription= data;
+	},function(){
+		$scope.weatherdescription = "could not find the data";
+	});
+}
+
+});
+
+
+
+
+	</script>
+</head>
+<body ng-controller="weathercontroller">
+	city:
+</br>
+ <input type="text" ng-model="city"/>
+ </br>
+ country:
+ <input type="text" ng-model="country">
+</br>
+
+<button ng-click="getWeather()">GET WEATHER</button>
+</br>
+</br>
+{{weatherdescription
+}}
+
+
+</body>
+</html>

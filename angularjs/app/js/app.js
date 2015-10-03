@@ -8,7 +8,7 @@ angular.module('mainApp').config(function($routeProvider){
 		templateUrl:'html/view2.html',
 		resolve:{
 		names:function(){
-			return['sachin', 'sehwag', 'ganguly']
+			return['sachin', 'sehwag', 'ganguly'];
 		}	
 		}
 	});

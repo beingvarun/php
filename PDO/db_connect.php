@@ -5,14 +5,15 @@ if($db_connect){
 
 //fetch all
 
-	$sql = 'SELECT client_name, client_id FROM user_data WHERE email= ?';
+	$sql = 'SELECT client_name, client_id FROM user_data WHERE email= :email';
 	$stmt =$db_connect->prepare($sql);
 
 
 //perform query
 
-$stmt ->execute(array('varunrajvn007@gmail.com'));
-$result = $stmt->fetch();
+$stmt->bindValue(':email', 'varunrajvn007@gmail.com');
+$stmt->execute();
+$result=$stmt->fetch();
 print_r( $result);
 }
 

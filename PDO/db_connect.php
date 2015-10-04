@@ -5,7 +5,7 @@ if($db_connect){
 
 //fetch all
 
-	$sql = 'UPDATE user_data SET client_name=:name WHERE email="varun@gmail.com"' ;
+	$sql = 'DELETE FROM user_data WHERE email = :email' ;
 	$stmt =$db_connect->prepare($sql);
 
 
@@ -13,7 +13,7 @@ if($db_connect){
 
 
 //fetching the result all
-$stmt->execute(array(':name'=>'james faulkner'));
+$stmt->execute(array(':email'=>'varun@gmail.com'));
 echo $stmt->rowCount();
 
 }

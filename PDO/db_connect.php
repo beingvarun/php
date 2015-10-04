@@ -8,11 +8,11 @@ catch(PDOException $e){
 	exit;
 }
 
-$sql = "SELECT client_name FROM user_data WHERE email= :email";
+$sql = "SELECT user_data.client_name,  employee.name FROM  user_data INNER JOIN  employee  ON user_data.client_id = employee.id";
 $stmt = $db_connect->prepare($sql);
 
 if($stmt){
-$stmt->execute(array(':email'=>'varunrajvn007@gmail.com'));
+$stmt->execute();
 }
 if($stmt){
 $result = $stmt->fetch();

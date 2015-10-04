@@ -5,7 +5,7 @@ if($db_connect){
 
 //fetch all
 
-	$sql = 'INSERT INTO user_data(email, client_name, client_password, activated, login_time) VALUES(:email, :client_name, :client_password, :activated, NOW())' ;
+	$sql = 'UPDATE user_data SET client_name=:name WHERE email="varun@gmail.com"' ;
 	$stmt =$db_connect->prepare($sql);
 
 
@@ -13,11 +13,8 @@ if($db_connect){
 
 
 //fetching the result all
-$stmt->execute(array('email'=>'james@gmail.com',
- ':client_name'=>'sean',
- ':client_password'=>'hellohosss',
- ':activated'=>0));
-echo "New client_Id id:".$db_connect->lastInsertId();
+$stmt->execute(array(':name'=>'james faulkner'));
+echo $stmt->rowCount();
 
 }
 

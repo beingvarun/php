@@ -1,21 +1,26 @@
 <?php
-//PDO database connection 
-$db_connect = new PDO('mysql:host=localhost;dbname=social', 'varunblack', 'doublebarrel');
-if($db_connect){
+try{
+	$db_connect = new PDO('mysql:host=localhost;dbname=social', 'varunblack', 'doublebarrel');
 
-//fetch all
+}
+catch(PDOException $e){
+	echo "could not connect to the database";
+	exit;
+}
 
-	$sql = 'DELETE FROM user_data WHERE email = :email' ;
-	$stmt =$db_connect->prepare($sql);
+$sql = "SELECT client_name FROM user_data WHERE email= :email";
+$stmt = $db_connect->prepare($sql);
 
+if($stmt){
+$stmt->execute(array(':email'=>'varunrajvn007@gmail.com'));
+}
+if($stmt){
+$result = $stmt->fetch();
 
-//perform query
-
-
-//fetching the result all
-$stmt->execute(array(':email'=>'varun@gmail.com'));
-echo $stmt->rowCount();
-
+print_r($result);
+}
+else{
+	echo "something went wrong";
 }
 
 ?>

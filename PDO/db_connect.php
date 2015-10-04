@@ -5,16 +5,20 @@ if($db_connect){
 
 //fetch all
 
-	$sql = 'SELECT client_name, client_id FROM user_data WHERE email= :email';
+	$sql = 'INSERT INTO user_data(email, client_name, client_password, activated, login_time) VALUES(:email, :client_name, :client_password, :activated, NOW())' ;
 	$stmt =$db_connect->prepare($sql);
 
 
 //perform query
 
-$stmt->bindValue(':email', 'varunrajvn007@gmail.com');
-$stmt->execute();
-$result=$stmt->fetch();
-print_r( $result);
+
+//fetching the result all
+$stmt->execute(array('email'=>'james@gmail.com',
+ ':client_name'=>'sean',
+ ':client_password'=>'hellohosss',
+ ':activated'=>0));
+echo "New client_Id id:".$db_connect->lastInsertId();
+
 }
 
 ?>

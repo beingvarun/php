@@ -3,21 +3,17 @@
 $db_connect = new PDO('mysql:host=localhost;dbname=social', 'varunblack', 'doublebarrel');
 if($db_connect){
 
-//perform query	
-	$stmt =$db_connect->query("SELECT * FROM user_data");
+//fetch all
+
+	$sql = 'SELECT client_name, client_id FROM user_data WHERE email= ?';
+	$stmt =$db_connect->prepare($sql);
 
 
-//fetching the result
+//perform query
 
-$result = $stmt->fetch(PDO::FETCH_BOTH);
-print_r($result);
-
-}else{
-	echo "not connected";
+$stmt ->execute(array('varunrajvn007@gmail.com'));
+$result = $stmt->fetch();
+print_r( $result);
 }
-
-
-
-
 
 ?>

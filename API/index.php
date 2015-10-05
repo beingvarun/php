@@ -1,5 +1,6 @@
 <?php
 header('Content-Type:application/json');
+include('function.php');
 if(!empty($_GET['movie'])){
 	$movie = $_GET['movie'];
 	$actor = getData($movie);
@@ -20,7 +21,7 @@ function deliver_response($status, $statusText, $data){
  $response['status'] =$status;
  $response['statusText'] = $statusText;
  $response['data'] = $data;
- $json_response = $json_encode($response);
+ $json_response = json_encode($response);
  echo $json_response;
 }
 
